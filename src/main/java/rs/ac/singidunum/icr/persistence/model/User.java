@@ -29,6 +29,9 @@ public class User {
     @Column(name = "status_id")
     private int statusId;
 
+    @Column(name = "mobile_number")
+    private String mobileNumber;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "status_id", referencedColumnName = "id", insertable = false, updatable = false)
     private UserStatus userStatus;
@@ -41,12 +44,21 @@ public class User {
 
     }
 
-    public User(String email, String password, String firstName, String lastName, int statusId) {
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
+    }
+
+    public User(String email, String password, String firstName, String lastName, int statusId, String mobileNumber) {
         this.setEmail(email);
         this.setPassword(password);
         this.setFirstName(firstName);
         this.setLastName(lastName);
         this.setStatusId(statusId);
+        this.setMobileNumber(mobileNumber);
     }
 
     public User(int id, String email, String password, String firstName, String lastName, int statusId) {

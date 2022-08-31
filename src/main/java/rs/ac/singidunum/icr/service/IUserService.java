@@ -18,7 +18,7 @@ public interface IUserService {
 
     void insertUserAuth (int userId, String applicationId);
 
-    User registerUser(String username, String password, String firstName, String lastName);
+    User registerUser(String username, String password, String firstName, String lastName, String mobileNumber);
 
     /*UserAuth authUser(String username, String password, String applicationId, String refreshToken, String grantType);*/
 }

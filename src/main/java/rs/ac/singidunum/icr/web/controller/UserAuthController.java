@@ -64,6 +64,7 @@ public class UserAuthController {
         String password = objectNode.get("password").asText();
         String firstName = objectNode.get("firstName").asText();
         String lastName = objectNode.get("lastName").asText();
-        return userService.registerUser(username, password, firstName,lastName);
+        String mobileNumber = objectNode.get("mobileNumber").asText();
+        return userService.registerUser(username, password, firstName,lastName, mobileNumber);
     }
 }

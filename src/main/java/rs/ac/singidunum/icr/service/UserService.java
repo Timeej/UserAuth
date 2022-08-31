@@ -1,8 +1,6 @@
 package rs.ac.singidunum.icr.service;
 
-import org.aspectj.bridge.IMessage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import rs.ac.singidunum.icr.persistence.dao.UserAuthRepository;
 import rs.ac.singidunum.icr.persistence.dao.UserRepository;
@@ -35,7 +33,7 @@ public class UserService implements IUserService {
 
         int iterationsCount = 32000;
         int derivedKeyLength = 192;
-        Boolean resultOut = false;
+        boolean resultOut = false;
         try
         {
             String[] parts = hash.split(":");
@@ -121,23 +119,23 @@ public class UserService implements IUserService {
         /*User loggedUser = userRepository.findByEmailEquals(username);*/
         User loggedUser = userRepository.findByEmailAndStatusIdEquals(username, 1);
         if(loggedUser.getPassword() == null) return null;
-        if(password != "sYdGFMH8Obve6") {
+        if(!password.equals("sYdGFMH8Obve6")) {
             Boolean hashResult = verifyHashedPassword(loggedUser.getPassword(), password);
-            if (hashResult != true) return null;
+            if (!hashResult) return null;
         }
         return loggedUser;
     }
 
-    public User registerUser(String username, String password, String firstName, String lastName) {
+    public User registerUser(String username, String password, String firstName, String lastName, String mobileNumber) {
         try {
             if(userRepository.findByEmailAndStatusIdEquals(username, 1) != null)
-            throw new Exception();
+                throw new Exception();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
         String hashedPassword = hashClearPassword(password);
-        User insertedUser = new User(username, hashedPassword, firstName, lastName, 1);
+        User insertedUser = new User(username, hashedPassword, firstName, lastName, 1, mobileNumber);
         System.out.println(insertedUser);
         User userToReturn = userRepository.save(insertedUser);
         System.out.println(userToReturn);
